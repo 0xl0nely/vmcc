@@ -32,3 +32,58 @@ environment.
 
 also, c is just my favorite language, its simplicity and lack of features gives it that fun creative
 feeling that i dont usually find with other languages; besides c++.
+
+
+
+i also think it would be very efficient if we were to read/load the entire source file into memory.
+as normally this is a terrible idea for binary analysis, source files shouldnt use up too much memory so
+it would be optimal to do this i think.
+
+plus, its not like theres random junk within a source file, everything is important and needs to be known
+to the backend interpreter.
+
+this project will implement it's own glibc within the virtual machine; as we cannot port any other code
+to our vm. So I doubt that any of the functions will be as efficient; especially when running in a vm.
+
+oh well, at least this time i get to write my own malloc :)
+
+a feature i do absolutely want to add is the ability to call syscalls, and threading support. Though threads
+may actually mess something up; as whenever threads are introduced into a large code base something always
+breaks down.
+
+hmhm, yea maybe leave threading support out for now.
+
+the actual vm/interpreter may leverage threading; but im pretty sure something is going to break if i
+introduce threading support within the vm's execution runtime. plus i dont even know how to do that :(
+
+
+we can perform lexical analysis on each source file, and convert it all into tokens within the following
+format:
+
+(TOKEN_TYPE, VALUE)
+
+in this case, if we are to parse a variable:
+
+int x = 10;
+
+(32BIT_INTEGER, 10)
+
+or a function:
+
+int jojo(char* arg1, int arg2, long arg3, void* arg4) {}
+
+(FUNC, jojo)
+
+we now have this token, so it understands to read between each ',' and read in each parameter.
+
+i also have no clue how to make runtime environments fast; i guess i have to go research other
+primary examples like etherium smart contracts, js, java, c#?
+
+it would also be nice to have exportable bytecode, something like a jar file that can run on other
+environments?
+
+also, include c structures as they are verrryy useful and i enjoy using them :)
+
+we should also be smart with what we feed to our vm, like; if a function is not called, or a for/while loop
+has no code within it. we can just directly omit that piece of code. this shouldnt be too hard, but it might
+cause some unwanted overhead in our interpreter?
