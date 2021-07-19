@@ -1,0 +1,4 @@
+int x = 1337;
+char* loser = "Hello there!";
+char* haha = "what the hell are you talkling aobut dude?";
+char* idiot = "hehe"
