@@ -4,7 +4,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "../includes/lexer.hpp"
-// alloc buffer, load source, and init hash table
+
 Tokenizer::Tokenizer(const char* path) {
     int fd;
     struct stat finfo;
@@ -16,14 +16,12 @@ Tokenizer::Tokenizer(const char* path) {
     if (read(fd, (void*)buffer, finfo.st_size) < 0) {
         err_handle("Could not load source into memory!");
     }
+    return;
 }
 // dealloc everything, after tokens have been parsed, we do not want it in memory anymore
 Tokenizer::~Tokenizer() {
     free((void*)buffer);
-
-
-
-
+    return;
 }
 
 token_t* Tokenizer::new_token(TOKEN_ENUMERATION type, char* start, int n) {
@@ -47,11 +45,14 @@ void Tokenizer::list_tokens() {
         case TOKEN_ENUMERATION::RETURN:printf("(RETURN)\n");break;
         case TOKEN_ENUMERATION::WHILE:printf("(WHILE)\n");break;
         case TOKEN_ENUMERATION::FOR:printf("(FOR)\n");break;
+        case TOKEN_ENUMERATION::STRUCT:printf("(STRUCT)\n");break;
+        case TOKEN_ENUMERATION::TYPEDEF:printf("(TYPEDEF)\n");break;
+        case TOKEN_ENUMERATION::ENUM:printf("(ENUM)\n");break;
         case TOKEN_ENUMERATION::TRUE:printf("(TRUE)\n");break;
         case TOKEN_ENUMERATION::FALSE:printf("(FALSE)\n");break;
-        case TOKEN_ENUMERATION::INTEGER:printf("(INTEGER)");break;
-        case TOKEN_ENUMERATION::LONG:printf("(LONG)");break;
-        case TOKEN_ENUMERATION::CHAR:printf("(CHAR)");break;
+        case TOKEN_ENUMERATION::INTEGER:printf("(INTEGER)\n");break;
+        case TOKEN_ENUMERATION::LONG:printf("(LONG)\n");break;
+        case TOKEN_ENUMERATION::CHAR:printf("(CHAR)\n");break;
         case TOKEN_ENUMERATION::LITERAL:printf("(LITERAL, %s)\n", it->value);break;
         case TOKEN_ENUMERATION::IDENTIFIER:printf("(IDENTIFIER, %s)\n", it->value);break;
         case TOKEN_ENUMERATION::LFUNCTION:printf("(LFUNCTION)\n");break;
@@ -144,15 +145,18 @@ void Tokenizer::err_handle(const char* err) {
     return;
 }
 
-int Tokenizer::check_keyword(char* cursor) {
-
-
-
-
-
-
-
-    return 0;
+void Tokenizer::check_keyword() {
+    int n = sizeof(keywords)/sizeof(char*), i;
+    for (auto& it: tokens) {
+        if (it->type == TOKEN_ENUMERATION::IDENTIFIER) {
+            for (i = 0; i < n; i++) {
+                if (strequals(it->value, (char*)keywords[i])) {
+                    it->type = keyword_tokens[i];
+                }
+            }
+        }
+    }
+    return;
 }
 
 void Tokenizer::src_tok() {
@@ -352,6 +356,7 @@ reset:
         }
         cursor++;
     }
+    check_keyword();
 }
 
 int main(int argc, char**argv) {
