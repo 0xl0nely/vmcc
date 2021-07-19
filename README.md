@@ -2,3 +2,6 @@
 
 # VMCC
 The Virtual Machine C Compiler
+
+
+This project brings to you a fully featured interpreter for the C language sytax.
