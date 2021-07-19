@@ -9,7 +9,7 @@ Tokenizer::Tokenizer(const char* path) {
     int fd;
     struct stat finfo;
     if (access(path, F_OK)) err_handle("Could not access file!");
-	if ((fd = open(path, O_RDONLY)) < 0) err_handle("Could not open file!");
+    if ((fd = open(path, O_RDONLY)) < 0) err_handle("Could not open file!");
     stat(path, &finfo);
     this->buffer = (char*)malloc(finfo.st_size);
     memset((void*)this->buffer, 0, finfo.st_size);
@@ -139,9 +139,9 @@ bool Tokenizer::strequals(char* cursor, char* s) {
 }
 
 void Tokenizer::err_handle(const char* err) {
-	std::cout<<err<<std::endl;
-	exit(-1);
-	return;
+    std::cout<<err<<std::endl;
+    exit(-1);
+    return;
 }
 
 int Tokenizer::check_keyword(char* cursor) {
@@ -355,7 +355,7 @@ reset:
 }
 
 int main(int argc, char**argv) {
-	Tokenizer t(argv[1]);
+    Tokenizer t(argv[1]);
     t.src_tok();
     t.list_tokens();
 }
