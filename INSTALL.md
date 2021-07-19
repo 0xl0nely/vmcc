@@ -1,3 +1,2 @@
-mkdir build && cd build
-cmake ..
+chmod +x configure && ./configure
 make && make install
