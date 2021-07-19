@@ -1,0 +1,48 @@
+#include <stdio.h>
+#define MAX_NODES 50
+#define start __attribute__((constructor))
+#define end __attribute__((destructor))
+/*
+    basic script for a linked list, the lexer and AST should be able to properly tokenize, and
+    parse this entire source file. The semantic analysis phase MUST also detect syntax errors.
+
+    if vmcc is able to generate bytecode from this source file, it is basically done. there may still
+    be a few more features we can add, but not much.
+*/
+struct node {
+    int key;
+    struct node* fd;
+    void(*heehee)(int, node_p fd); // function pointers, we gotta parse those too!
+};//haha look at me, im a comment in a hidden area!!, i sure hope this doesnt break anything uwu
+typedef struct node node_t, *node_p;
+
+node_p nodes[MAX_NODES]; // parse arrays too, serves no purpose but to act as an array
+
+// i have no idea if this works, i didnt compile anyh of this ;-;
+void append(node_p this, node_p a) {
+    node_p temp;
+    for (temp = this; temp->next != 0; temp = temp->next);
+    temp->next = a;
+    return;
+}
+
+node_p new_node(int key, node_p fd) {
+    node_p n = (node_p)malloc(sizeof(node_t));
+    n->key = key;
+    n->fd = fd;
+    n->heehee = append;
+    return n;
+}
+
+void start s() {
+    puts("haha! I run before main!!");
+}
+
+int main(int argc, char**argv) {
+    node_p head = new_node(0, 0);
+    head->append(head, new_node(1, 0));
+    return 0;
+}
+void end e() {
+    puts("heee hee, i start after main!");
+}

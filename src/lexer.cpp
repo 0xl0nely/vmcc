@@ -48,6 +48,9 @@ void Tokenizer::list_tokens() {
         case TOKEN_ENUMERATION::STRUCT:printf("(STRUCT)\n");break;
         case TOKEN_ENUMERATION::TYPEDEF:printf("(TYPEDEF)\n");break;
         case TOKEN_ENUMERATION::ENUM:printf("(ENUM)\n");break;
+        case TOKEN_ENUMERATION::SWITCH:printf("(SWITCH)\n");break;
+        case TOKEN_ENUMERATION::CASE:printf("(CASE)\n");break;
+        case TOKEN_ENUMERATION::DEFAULT:printf("DEFAULT\n");break;
         case TOKEN_ENUMERATION::TRUE:printf("(TRUE)\n");break;
         case TOKEN_ENUMERATION::FALSE:printf("(FALSE)\n");break;
         case TOKEN_ENUMERATION::INTEGER:printf("(INTEGER)\n");break;
@@ -80,6 +83,7 @@ void Tokenizer::list_tokens() {
         case TOKEN_ENUMERATION::LEFT_BRACKET:printf("(LEFT BRACKET)\n");break;
         case TOKEN_ENUMERATION::RIGHT_BRACKET:printf("(RIGHT BRACKET)\n");break;
         case TOKEN_ENUMERATION::SEMI_COLON:printf("(SEMI COLON)\n");break;
+        case TOKEN_ENUMERATION::COLON:printf("(COLON)\n");break;
         case TOKEN_ENUMERATION::DOT:printf("(DOT)\n");break;
         case TOKEN_ENUMERATION::ARROW:printf("(ARROW)\n");break;
         case TOKEN_ENUMERATION::ASTERISK:printf("(ASTERISK)\n");break;
@@ -207,6 +211,11 @@ reset:
         }
         if (*cursor == '.') {
             tokens.push_back(new_token(TOKEN_ENUMERATION::DOT, cursor, 0));
+            cursor++;
+            goto reset;
+        }
+        if (*cursor == ':') {
+            tokens.push_back(new_token(TOKEN_ENUMERATION::COLON, cursor, 0));
             cursor++;
             goto reset;
         }
