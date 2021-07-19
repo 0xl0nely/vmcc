@@ -7,4 +7,4 @@ A fully featured interpreter for the C language syntax.
 <br/>
 <br/>
 <br/>
-Lorem Ipsum Dolor i forgot the rest
+(WARNING) CURENTLY UNDER ACTIVE DEVELOPMENT!!!
