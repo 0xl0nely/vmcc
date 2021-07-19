@@ -3,12 +3,10 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
 #include <malloc.h>
 
 // gives us a good idea of what initial state to jump to
-
-const char* keywords[] = {"if","else","elif","return","while","for","true","false",
-    "int","long","char"};
 
 enum class TOKEN_ENUMERATION {
     /* statements */
@@ -32,6 +30,26 @@ enum class TOKEN_ENUMERATION {
 
     /* expressions */
     ESCAPE, COMMA, LEFT_BRACKET, RIGHT_BRACKET, SEMI_COLON, DOT, ARROW, ASTERISK, INDEX
+};
+
+const char* keywords[] = {"if","else","elif","return","while","for", "struct", "typedef",
+    "enum", "true","false","int","long","char"};
+
+TOKEN_ENUMERATION keyword_tokens[] = {
+    TOKEN_ENUMERATION::IF,
+    TOKEN_ENUMERATION::ELSE,
+    TOKEN_ENUMERATION::ELIF,
+    TOKEN_ENUMERATION::RETURN,
+    TOKEN_ENUMERATION::WHILE,
+    TOKEN_ENUMERATION::FOR,
+    TOKEN_ENUMERATION::STRUCT,
+    TOKEN_ENUMERATION::TYPEDEF,
+    TOKEN_ENUMERATION::ENUM,
+    TOKEN_ENUMERATION::TRUE,
+    TOKEN_ENUMERATION::FALSE,
+    TOKEN_ENUMERATION::INTEGER,
+    TOKEN_ENUMERATION::LONG,
+    TOKEN_ENUMERATION::CHAR
 };
 
 struct TOKEN_STRUCTURE {
@@ -60,7 +78,7 @@ public:
     bool strequals(char*,char*);
     void err_handle(const char*);
     void output_tok();
-    int check_keyword(char*);
+    void check_keyword();
     void src_tok();
 };
 #endif
