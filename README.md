@@ -2,7 +2,7 @@
 
 # VMCC
 ## The Virtual Machine C Compiler
-### A fully featured interpreter for the C language
+A fully featured interpreter for the C language
 <br/>
 <br/>
 <br/>
