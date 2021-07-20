@@ -11,7 +11,7 @@ A fully featured interpreter for the C language syntax.
 ## Goals with the Project
 * Create a way to port C code across architecture efficiently.
 * Extremely Fast Runtime Environment.
-* Easily Extensible.
+* Easily Extensible and Modular System.
 * Find an easy way to obfuscate malicious C code from static analysis.
 * Make it as efficient as possible
 
