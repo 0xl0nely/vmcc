@@ -20,20 +20,20 @@ enum class TOKEN_ENUMERATION {
 
     /* identifier */
     IDENTIFIER,
-
-    /* function */
-    LFUNCTION, RFUNCTION,
-
+    
     /* operators */
     ADD, SUB, DIV, MUL, ASSIGN, MOD, EQUALS, NOT_EQUALS, INC, DEC, APPEND_ADD, APPEND_SUB, APPEND_DIV,
     APPEND_MUL, LESS, GREATER, LESS_E, GREATER_E,
 
     /* expressions */
-    ESCAPE, COMMA, LEFT_BRACKET, RIGHT_BRACKET, SEMI_COLON, COLON, DOT, ARROW, ASTERISK, INDEX
+    ESCAPE, COMMA, LEFT_BRACKET, RIGHT_BRACKET, SEMI_COLON, COLON, DOT, ARROW, ASTERISK, INDEX,
+    LPAREN, RPAREN,
+
+    F_EOF
 };
 
-const char* keywords[] = {"if","else","elif","return","while","for", "struct", "typedef", "switch",
-    "case", "enum", "true","false","int","long","char"};
+const char* keywords[] = {"if","else","elif","return","while","for", "struct", "typedef", "enum", 
+    "switch", "case", "default", "goto", "true", "false", "int", "long", "char"};
 
 TOKEN_ENUMERATION keyword_tokens[] = {
     TOKEN_ENUMERATION::IF,
@@ -47,6 +47,8 @@ TOKEN_ENUMERATION keyword_tokens[] = {
     TOKEN_ENUMERATION::ENUM,
     TOKEN_ENUMERATION::SWITCH,
     TOKEN_ENUMERATION::CASE,
+    TOKEN_ENUMERATION::DEFAULT,
+    TOKEN_ENUMERATION::GOTO,
     TOKEN_ENUMERATION::TRUE,
     TOKEN_ENUMERATION::FALSE,
     TOKEN_ENUMERATION::INTEGER,
