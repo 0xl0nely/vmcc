@@ -80,6 +80,12 @@ void Tokenizer::list_tokens() {
         case TOKEN_ENUMERATION::GREATER:printf("(GREATER THAN)\n");break;
         case TOKEN_ENUMERATION::LESS_E:printf("(LESS THAN OR EQUALS TO)\n");break;
         case TOKEN_ENUMERATION::GREATER_E:printf("(GREATER THAN OR EQUALS TO)\n");break;
+        case TOKEN_ENUMERATION::NOT:printf("(NOT)\n");break;
+        case TOKEN_ENUMERATION::XOR:printf("(XOR)\n");break;
+        case TOKEN_ENUMERATION::AND:printf("(AND)\n");break;
+        case TOKEN_ENUMERATION::OR:printf("(OR)\n");break;
+        case TOKEN_ENUMERATION::ANDAND:printf("(ANDAND)\n");break;
+        case TOKEN_ENUMERATION::OROR:printf("(OROR)\n");break;
         case TOKEN_ENUMERATION::ESCAPE:printf("(ESCAPE)\n");break;
         case TOKEN_ENUMERATION::COMMA:printf("(COMMA)\n");break;
         case TOKEN_ENUMERATION::LEFT_BRACKET:printf("(LEFT BRACKET)\n");break;
@@ -323,6 +329,41 @@ reset:
             tokens.push_back(new_token(TOKEN_ENUMERATION::RPAREN, cursor, 0));
             cursor++;
             goto reset;
+        }
+        if (*cursor == '!') {
+            if (*(cursor+1) == '=') {
+                tokens.push_back(new_token(TOKEN_ENUMERATION::NOT_EQUALS, cursor, 0));
+                cursor+=2;
+                goto reset;
+            } else {
+                tokens.push_back(new_token(TOKEN_ENUMERATION::NOT, cursor, 0));
+                cursor++;
+                goto reset;
+            }
+        }
+        if (*cursor == '|') {
+            switch(*(cursor+1)) {
+            case '|':
+                tokens.push_back(new_token(TOKEN_ENUMERATION::OROR, cursor, 0));
+                cursor+=2;
+                goto reset;
+            default:
+                tokens.push_back(new_token(TOKEN_ENUMERATION::OR, cursor, 0));
+                cursor++;
+                goto reset;
+            }
+        }
+        if (*cursor == '&') {
+            if (*(cursor+1) == '&') {
+                tokens.push_back(new_token(TOKEN_ENUMERATION::ANDAND, cursor, 0));
+                cursor+=2;
+                goto reset;
+            } else {
+                tokens.push_back(new_token(TOKEN_ENUMERATION::AND, cursor, 0));
+                cursor++;
+                goto reset;
+            }
+
         }
         if (*cursor == '0' && *(cursor+1) == 'x') {
             cursor+=2;
