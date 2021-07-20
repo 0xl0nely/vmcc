@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include "../includes/lexer.hpp"
+#include "../includes/lexer.h"
 
 Tokenizer::Tokenizer(const char* path) {
     int fd;
