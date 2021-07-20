@@ -89,8 +89,8 @@ void Tokenizer::list_tokens() {
         case TOKEN_ENUMERATION::DOT:printf("(DOT)\n");break;
         case TOKEN_ENUMERATION::ARROW:printf("(ARROW)\n");break;
         case TOKEN_ENUMERATION::ASTERISK:printf("(ASTERISK)\n");break;
-        case TOKEN_ENUMERATION::INDEX:printf("(INDEX, %s)\n", it->value);
-        case TOKEN_ENUMERATION::F_EOF:printf("(EOF)\n");
+        case TOKEN_ENUMERATION::INDEX:printf("(INDEX, %s)\n", it->value);break;
+        case TOKEN_ENUMERATION::F_EOF:printf("(EOF)\n");break;
         }
     }
     return;
