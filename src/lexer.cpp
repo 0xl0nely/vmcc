@@ -57,6 +57,7 @@ void Tokenizer::list_tokens() {
         case TOKEN_ENUMERATION::LONG:printf("(LONG)\n");break;
         case TOKEN_ENUMERATION::CHAR:printf("(CHAR)\n");break;
         case TOKEN_ENUMERATION::LITERAL:printf("(LITERAL, %s)\n", it->value);break;
+        case TOKEN_ENUMERATION::HEX:printf("(HEX, %s)\n",it->value);break;
         case TOKEN_ENUMERATION::IDENTIFIER:printf("(IDENTIFIER, %s)\n", it->value);break;
         case TOKEN_ENUMERATION::LFUNCTION:printf("(LFUNCTION)\n");break;
         case TOKEN_ENUMERATION::RFUNCTION:printf("(RFUNCTION)\n");break;
@@ -116,6 +117,13 @@ bool Tokenizer::is_operator(char in) {
 
 bool Tokenizer::is_ascii(char in) {
     if (33 <= in && in <= 126) {
+        return true;
+    }
+    return false;
+}
+
+bool Tokenizer::is_hex(char in) {
+    if ((48 <= in && in <= 57) || (65 <= in && in <= 70) || (97 <= in && in <= 102)) {
         return true;
     }
     return false;
@@ -314,6 +322,21 @@ reset:
             cursor++;
             goto reset;
         }
+        if (*cursor == '0' && *(cursor+1) == 'x') {
+            cursor+=2;
+            temp = cursor;
+            while (is_hex(*temp)) {
+                if (!*temp) {
+                    err_handle("Invalid Hexadecimal Literal!");
+                }
+                temp++;
+            }
+            n = (int)(temp-cursor);
+            tokens.push_back(new_token(TOKEN_ENUMERATION::HEX, cursor, n));
+            cursor+=n;
+            goto reset;
+        }
+        
         if (is_digit(*cursor)) {
             temp = cursor; // now integer literal is between cursor and temp
             while(is_digit(*temp)) {
@@ -323,7 +346,6 @@ reset:
             n = (int)(temp-cursor);
             tokens.push_back(new_token(TOKEN_ENUMERATION::LITERAL, cursor, n));
             cursor+=n;
-            n=0;
             goto reset;
         }
 
@@ -336,7 +358,6 @@ reset:
             n = (int)(temp-cursor)+1;
             tokens.push_back(new_token(TOKEN_ENUMERATION::LITERAL, cursor, n));
             cursor+=n;
-            n=0;
             goto reset;
         }
 
@@ -345,7 +366,6 @@ reset:
             n = (int)(temp-cursor);
             tokens.push_back(new_token(TOKEN_ENUMERATION::INDEX, cursor+1, n-1));
             cursor+=n;
-            n=0;
             goto reset;
         }
 
@@ -360,7 +380,6 @@ reset:
             n = (int)(temp-cursor);
             tokens.push_back(new_token(TOKEN_ENUMERATION::IDENTIFIER, cursor, n));
             cursor+=n;
-            n=0;
             goto reset;
         }
         cursor++;

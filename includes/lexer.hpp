@@ -16,7 +16,7 @@ enum class TOKEN_ENUMERATION {
     TRUE, FALSE,
 
     /* literals */
-    INTEGER, LONG, CHAR, LITERAL,
+    INTEGER, LONG, CHAR, LITERAL, HEX,
 
     /* identifier */
     IDENTIFIER,
@@ -75,6 +75,7 @@ public:
     bool is_alpha(char);
     bool is_operator(char);
     bool is_ascii(char);
+    bool is_hex(char);
     char* strstr(char*, char*);
     char* strchr(char, char*);
     bool strequals(char*,char*);
