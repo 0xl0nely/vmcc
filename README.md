@@ -14,6 +14,8 @@ A fully featured interpreter for the C language syntax.
 * Easily Extensible and Modular System.
 * Find an easy way to obfuscate malicious C code from static analysis.
 * Make it as efficient as possible
+* Learn how to write my own Interpreted Programming Language
+* Create a Pwnable Challenge from my own Interpreted Programming Language (no LLVM)
 
 ## Features
 * The RISC Register Based Virtual Machine utilizes 64 bit addressing mode.
