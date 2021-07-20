@@ -90,6 +90,7 @@ void Tokenizer::list_tokens() {
         case TOKEN_ENUMERATION::ARROW:printf("(ARROW)\n");break;
         case TOKEN_ENUMERATION::ASTERISK:printf("(ASTERISK)\n");break;
         case TOKEN_ENUMERATION::INDEX:printf("(INDEX, %s)\n", it->value);
+        case TOKEN_ENUMERATION::F_EOF:printf("(EOF)\n");
         }
     }
     return;
@@ -372,7 +373,7 @@ reset:
 
         if (is_alpha(*cursor)) {
             temp = cursor;
-            while(is_alpha(*temp)) {
+            while(is_alpha(*temp) || *temp=='_') {
                 temp++;
                 if (!*temp) {
                     err_handle("Invalid Identifier Token");
@@ -386,6 +387,7 @@ reset:
         cursor++;
     }
     check_keyword();
+    tokens.push_back(new_token(TOKEN_ENUMERATION::F_EOF, 0, 0));
 }
 
 int main(int argc, char**argv) {
