@@ -26,6 +26,7 @@ A fully featured interpreter for the C language syntax.
 * Extremely Small Custom written GLIBC, optimized for the virtual machine
 * Debugger for code running in the virtual machine
 * Easy to use API for c++
+* Project Targest Multiple Architectures (x86, ARM, SPARC, MIPS, POWERPC)
 
 ## Installation
 
