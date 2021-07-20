@@ -50,7 +50,7 @@ void Tokenizer::list_tokens() {
         case TOKEN_ENUMERATION::ENUM:printf("(ENUM)\n");break;
         case TOKEN_ENUMERATION::SWITCH:printf("(SWITCH)\n");break;
         case TOKEN_ENUMERATION::CASE:printf("(CASE)\n");break;
-        case TOKEN_ENUMERATION::DEFAULT:printf("DEFAULT\n");break;
+        case TOKEN_ENUMERATION::DEFAULT:printf("(DEFAULT)\n");break;
         case TOKEN_ENUMERATION::GOTO:printf("(GOTO)\n");break;
         case TOKEN_ENUMERATION::TRUE:printf("(TRUE)\n");break;
         case TOKEN_ENUMERATION::FALSE:printf("(FALSE)\n");break;
@@ -60,8 +60,8 @@ void Tokenizer::list_tokens() {
         case TOKEN_ENUMERATION::LITERAL:printf("(LITERAL, %s)\n", it->value);break;
         case TOKEN_ENUMERATION::HEX:printf("(HEX, %s)\n",it->value);break;
         case TOKEN_ENUMERATION::IDENTIFIER:printf("(IDENTIFIER, %s)\n", it->value);break;
-        case TOKEN_ENUMERATION::LFUNCTION:printf("(LFUNCTION)\n");break;
-        case TOKEN_ENUMERATION::RFUNCTION:printf("(RFUNCTION)\n");break;
+        case TOKEN_ENUMERATION::LPAREN:printf("(LPAREN)\n");break;
+        case TOKEN_ENUMERATION::RPAREN:printf("(RPAREN)\n");break;
         case TOKEN_ENUMERATION::ADD:printf("(ADD)\n");break;
         case TOKEN_ENUMERATION::SUB:printf("(SUB)\n");break;
         case TOKEN_ENUMERATION::DIV:printf("(DIV)\n");break;
@@ -314,12 +314,12 @@ reset:
             }
         }
         if (*cursor == '(') {
-            tokens.push_back(new_token(TOKEN_ENUMERATION::LFUNCTION, cursor, 0));
+            tokens.push_back(new_token(TOKEN_ENUMERATION::LPAREN, cursor, 0));
             cursor++;
             goto reset;
         }
         if (*cursor == ')') {
-            tokens.push_back(new_token(TOKEN_ENUMERATION::RFUNCTION, cursor, 0));
+            tokens.push_back(new_token(TOKEN_ENUMERATION::RPAREN, cursor, 0));
             cursor++;
             goto reset;
         }
