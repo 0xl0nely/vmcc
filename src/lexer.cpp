@@ -51,6 +51,7 @@ void Tokenizer::list_tokens() {
         case TOKEN_ENUMERATION::SWITCH:printf("(SWITCH)\n");break;
         case TOKEN_ENUMERATION::CASE:printf("(CASE)\n");break;
         case TOKEN_ENUMERATION::DEFAULT:printf("DEFAULT\n");break;
+        case TOKEN_ENUMERATION::GOTO:printf("(GOTO)\n");break;
         case TOKEN_ENUMERATION::TRUE:printf("(TRUE)\n");break;
         case TOKEN_ENUMERATION::FALSE:printf("(FALSE)\n");break;
         case TOKEN_ENUMERATION::INTEGER:printf("(INTEGER)\n");break;
