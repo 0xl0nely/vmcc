@@ -24,7 +24,7 @@ A fully featured interpreter for the C language syntax.
 * Virtual Machine supports 32 bit addressing modes as well.
 * Minimal Memory Footprint.
 * Custom Bytecode File Format.
-* Extremely Fast Heap Allocation Within Virtual Machine with a Fixed Block Allocator
+* Extremely Fast Heap Allocation Within Virtual Machine with a Linear Memory Allocator
 * Virtual Machine's Malloc Implements a Caching Algorithm Similar to Tcache (Chunk Recycling)
 * Built-in REPL for ease of use.
 * Extremely Small Custom written GLIBC, optimized for the virtual machine
