@@ -1,3 +1,228 @@
+/*
+we want to be able to parse tokens into a tree, and present in the following format:
+
+int x = 1+1;
+
+- Program
+    - Statement
+        - IntegerVar32
+            - Identifier: x
+            - Assign
+                - Expression
+                    - BinaryExpression
+                        - NumericLiteral: 1
+                        - +
+                        - NumericLiteral: 1
+                        - END
+
+
+there are some basic c interpreters that cannot parse a basic variable declaration like the following:
+
+int x = 10;
+
+they only lex/parse each token/tree into either statement, variable declaration, and end. We can
+simply look to see if there is an End token, if not then continue to parse on the same branch.
+
+If we reach EOF token, then we know that it is an invalid variable declaration, like so:
+
+int x = 10
+
+
+int x;
+x = 10;
+
+- Program
+    - Statement
+        - IntegerVar32
+            - Identifier: x
+            - End
+    - Statement
+        - Identifier: x
+        - Assign
+        - NumericLiteral: 10
+        - End
+
+everything within an abstract syntax tree (by convention) will be parsed into the following types:
+
+Expression
+Statement
+Type
+
+
+Expressions
+===============================
+
+
+
+Statements
+===============================
+These are for explicit statements like variable declarations and keywords like for, if, else, elif,
+while, int, char, long, return, and more. 
+
+statements will also be used for assignment, just for ease of use. Example of operators that work
+as statements are the following:
+
++=, -=, /=, *=, ++, --, and et cetera.
+
+These will be included within the statements because of the what they actually intend to modify. They
+want to attempt to access and change the value of a variable. Lets take a look at the following
+example:
+
+int x = 10;
+
+Our tree can search through and parse find that it wants to declare a 32 bit integer, with an
+identifier of x. Then, it will check for either a semicolon, or an assignment operator (or any
+operator that attempts to assign new value). If there is a semicolon token next, then it will know
+that the declaration has ended. But if it has an assignment operator, then it will know that there
+is either an expression or a literal value up next.
+
+I reccomend manually attempting to parse a c source file into either expressions, statements, and
+literals and try to see how the compiler/interpreter can interpret our source code.
+
+Types
+===============================
+types do not need their separate class declarations, but they represent literal values within the
+program. Lets say the following code were to be parsed:
+
+int x = 10;
+
+10 is the literal value within the program, so this would be referred to as a type. the same goes for
+strings, structures, all literals will be within this types category.
+
+
+Lets attempt to parse the following; assume that everything has already been tokenized.
+
+
+int bar(char* in) {
+    return 0;
+}
+
+void foo(int in) {
+    return in;
+}
+
+int main(int argc, char**argv) {
+    char* string = "Idiot";
+    ++string;
+    string--;
+
+    foo(bar(string));
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+This little script is very particular due to the fact that it contains some tricky things we have
+to successfully parse into the AST. For one, we have introduced function calls, declarations,
+and variables.
+
+Something that should be noted is, what are functions??
+are they statements, or expressions??
+
+if they are void, meaning they return nothing; then they are statements. But if the function is non
+void; example: (int main), then it will be an expression.
+
+This is due to the fact that it returns a value, and this value can be evaluated to an expression
+since we can utilize its return value. But if its a statement, then we cannot use it within loops, if
+statements, and et cetera so it will simply be executed.
+
+void functions also cannot be nested within other functions, as you cannot pass void as a parameter
+to another function.
+
+Here is the list of expression types:
+
+Binary Expressions
+    examples:
+        &
+        &&
+        ||
+        +
+        -
+        /
+        *
+        ==
+        !=
+        <
+        >
+        <=
+        >=
+
+function calls (non void)
+    examples:
+        foo()
+        bar(foo(), 1);
+
+Unary Operations
+    !
+    ~
+
+Here is a list of Statement types:
+
+keywords
+    examples:
+        if
+        else
+        while
+        for
+        int
+        long
+        char
+        struct
+        typedef
+        enum
+        switch
+        case
+        default
+        goto
+        return
+        break
+        
+function call (void)
+    example:
+        foo();
+
+variable declaration and assignment
+    example:
+        int x;
+        x = 1;
+        char* jotaro;
+        int z = 1337;
+        char* loser = "hello there!";
+
+
+
+*/
+
 #ifndef BYTECODE_H
 #define BYTECODE_H
+
+
+class Ast {
+private:
+protected:
+public:
+
+
+};
+
+
+
+class Expression: public AST {
+
+
+
+
+};
+
+
+
+
+
+
 #endif
