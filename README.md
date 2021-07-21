@@ -31,6 +31,8 @@ A fully featured interpreter for the C language syntax.
 * Debugger for code running in the virtual machine
 * Easy to use API for c++
 * Project Targest Multiple Architectures (x86, ARM, SPARC, MIPS, POWERPC)
+* Implement a Just In Time Compiler for the runtime option
+* No Garbage COllection, since we want to stay true to C's explicit memory management
 
 ## Installation
 
