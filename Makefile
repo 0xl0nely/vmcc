@@ -1,6 +1,6 @@
 build: ./src/*.cpp
 	mkdir build
-	g++ ./src/*.cpp -o ./build/vmcc -O2 -D_FORTIFY_SOURCE=2 -Wall -Wextra -std=c++11
+	g++ ./src/*.cpp -o ./build/vmcc -O2 -D_FORTIFY_SOURCE=2 -Wall -Wextra -std=c++11 -I ./includes
 	strip -s build/vmcc
 install:
 	cp ./build/vmcc /opt
