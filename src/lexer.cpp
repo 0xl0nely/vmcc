@@ -20,7 +20,7 @@ Tokenizer::Tokenizer(const char* path) {
 }
 // dealloc everything, after tokens have been parsed, we do not want it in memory anymore
 Tokenizer::~Tokenizer() {
-    free((void*)buffer);
+
     return;
 }
 
@@ -57,8 +57,10 @@ void Tokenizer::list_tokens() {
         case TOKEN_ENUMERATION::INTEGER:printf("(INTEGER)\n");break;
         case TOKEN_ENUMERATION::LONG:printf("(LONG)\n");break;
         case TOKEN_ENUMERATION::CHAR:printf("(CHAR)\n");break;
-        case TOKEN_ENUMERATION::LITERAL:printf("(LITERAL, %s)\n", it->value);break;
-        case TOKEN_ENUMERATION::HEX:printf("(HEX, %s)\n",it->value);break;
+        case TOKEN_ENUMERATION::LITERAL_INTEGER:printf("(LITERAL INTEGER, %s)\n", it->value);break;
+        case TOKEN_ENUMERATION::LITERAL_HEX:printf("(LITERAL HEX, %s)\n",it->value);break;
+        case TOKEN_ENUMERATION::LITERAL_STRING:printf("(LITERAL STRING, %s)\n",it->value);break;
+        case TOKEN_ENUMERATION::LITERAL_CHAR:printf("(LITERAL CHAR, %s)\n", it->value);break;
         case TOKEN_ENUMERATION::IDENTIFIER:printf("(IDENTIFIER, %s)\n", it->value);break;
         case TOKEN_ENUMERATION::LPAREN:printf("(LPAREN)\n");break;
         case TOKEN_ENUMERATION::RPAREN:printf("(RPAREN)\n");break;
@@ -159,13 +161,29 @@ bool Tokenizer::strequals(char* cursor, char* s) {
     return strncmp(cursor, s, strlen(s)) == 0;
 }
 
-void Tokenizer::err_handle(const char* err) {
-    std::cout<<err<<std::endl;
-    exit(-1);
-    return;
-}
-
 void Tokenizer::check_keyword() {
+    TOKEN_ENUMERATION keyword_tokens[] = {
+        TOKEN_ENUMERATION::IF,
+        TOKEN_ENUMERATION::ELSE,
+        TOKEN_ENUMERATION::ELIF,
+        TOKEN_ENUMERATION::RETURN,
+        TOKEN_ENUMERATION::WHILE,
+        TOKEN_ENUMERATION::FOR,
+        TOKEN_ENUMERATION::STRUCT,
+        TOKEN_ENUMERATION::TYPEDEF,
+        TOKEN_ENUMERATION::ENUM,
+        TOKEN_ENUMERATION::SWITCH,
+        TOKEN_ENUMERATION::CASE,
+        TOKEN_ENUMERATION::DEFAULT,
+        TOKEN_ENUMERATION::GOTO,
+        TOKEN_ENUMERATION::TRUE,
+        TOKEN_ENUMERATION::FALSE,
+        TOKEN_ENUMERATION::INTEGER,
+        TOKEN_ENUMERATION::LONG,
+        TOKEN_ENUMERATION::CHAR
+    };
+    const char* keywords[] = {"if","else","elif","return","while","for", "struct", "typedef", "enum", 
+        "switch", "case", "default", "goto", "true", "false", "int", "long", "char"};
     int n = sizeof(keywords)/sizeof(char*), i;
     for (auto& it: tokens) {
         if (it->type == TOKEN_ENUMERATION::IDENTIFIER) {
@@ -192,7 +210,9 @@ reset:
             cursor = strstr((char*)"*/", cursor)+2;
         }
         if (*cursor == '\n' || *cursor == ' ') {
-            cursor++;
+            while (*cursor == '\n' || *cursor == ' ') {
+                cursor++;
+            }
             goto reset;
         }
         if (*cursor == ';') {
@@ -375,7 +395,7 @@ reset:
                 temp++;
             }
             n = (int)(temp-cursor);
-            tokens.push_back(new_token(TOKEN_ENUMERATION::HEX, cursor, n));
+            tokens.push_back(new_token(TOKEN_ENUMERATION::LITERAL_HEX, cursor, n));
             cursor+=n;
             goto reset;
         }
@@ -387,7 +407,7 @@ reset:
             };
             // add literal integer value to token vector
             n = (int)(temp-cursor);
-            tokens.push_back(new_token(TOKEN_ENUMERATION::LITERAL, cursor, n));
+            tokens.push_back(new_token(TOKEN_ENUMERATION::LITERAL_INTEGER, cursor, n));
             cursor+=n;
             goto reset;
         }
@@ -399,11 +419,21 @@ reset:
                 }
             }
             n = (int)(temp-cursor)+1;
-            tokens.push_back(new_token(TOKEN_ENUMERATION::LITERAL, cursor, n));
+            tokens.push_back(new_token(TOKEN_ENUMERATION::LITERAL_STRING, cursor, n));
             cursor+=n;
             goto reset;
         }
-
+        if (*cursor == '\'') {
+            if (*(cursor+1) == '\\' && *(cursor+3) == '\'') {
+                tokens.push_back(new_token(TOKEN_ENUMERATION::LITERAL_CHAR, cursor, 4));
+                cursor+=3;
+            } else if (*(cursor+2) == '\''){
+                tokens.push_back(new_token(TOKEN_ENUMERATION::LITERAL_CHAR, cursor, 3));
+                cursor+=2;
+            } else {
+                err_handle("Invalid char literal!");
+            }
+        }
         if (*cursor == '[') {
             temp = strchr(']', cursor);
             n = (int)(temp-cursor);
@@ -411,7 +441,6 @@ reset:
             cursor+=n;
             goto reset;
         }
-
         if (is_alpha(*cursor)) {
             temp = cursor;
             while(is_alpha(*temp) || *temp=='_') {
@@ -429,10 +458,4 @@ reset:
     }
     check_keyword();
     tokens.push_back(new_token(TOKEN_ENUMERATION::F_EOF, 0, 0));
-}
-
-int main(int argc, char**argv) {
-    Tokenizer t(argv[1]);
-    t.src_tok();
-    t.list_tokens();
 }

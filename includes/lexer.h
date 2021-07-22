@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
-#include <malloc.h>
+#include "util.h"
 
 // gives us a good idea of what initial state to jump to
 
@@ -16,7 +16,7 @@ enum class TOKEN_ENUMERATION {
     TRUE, FALSE,
 
     /* literals */
-    INTEGER, LONG, CHAR, LITERAL, HEX,
+    INTEGER, LONG, CHAR, LITERAL_INTEGER, LITERAL_HEX, LITERAL_STRING, LITERAL_CHAR,
 
     /* identifier */
     IDENTIFIER,
@@ -30,30 +30,6 @@ enum class TOKEN_ENUMERATION {
     LPAREN, RPAREN,
 
     F_EOF
-};
-
-const char* keywords[] = {"if","else","elif","return","while","for", "struct", "typedef", "enum", 
-    "switch", "case", "default", "goto", "true", "false", "int", "long", "char"};
-
-TOKEN_ENUMERATION keyword_tokens[] = {
-    TOKEN_ENUMERATION::IF,
-    TOKEN_ENUMERATION::ELSE,
-    TOKEN_ENUMERATION::ELIF,
-    TOKEN_ENUMERATION::RETURN,
-    TOKEN_ENUMERATION::WHILE,
-    TOKEN_ENUMERATION::FOR,
-    TOKEN_ENUMERATION::STRUCT,
-    TOKEN_ENUMERATION::TYPEDEF,
-    TOKEN_ENUMERATION::ENUM,
-    TOKEN_ENUMERATION::SWITCH,
-    TOKEN_ENUMERATION::CASE,
-    TOKEN_ENUMERATION::DEFAULT,
-    TOKEN_ENUMERATION::GOTO,
-    TOKEN_ENUMERATION::TRUE,
-    TOKEN_ENUMERATION::FALSE,
-    TOKEN_ENUMERATION::INTEGER,
-    TOKEN_ENUMERATION::LONG,
-    TOKEN_ENUMERATION::CHAR
 };
 
 struct TOKEN_STRUCTURE {
@@ -81,7 +57,6 @@ public:
     char* strstr(char*, char*);
     char* strchr(char, char*);
     bool strequals(char*,char*);
-    void err_handle(const char*);
     void output_tok();
     void check_keyword();
     void src_tok();
