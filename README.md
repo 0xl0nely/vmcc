@@ -32,7 +32,7 @@ A fully featured interpreter for the C language syntax.
 * Easy to use API for c++
 * Project Targest Multiple Architectures (x86, ARM, SPARC, MIPS, POWERPC)
 * Implement a Just In Time Compiler for the runtime option
-* No Garbage COllection, since we want to stay true to C's explicit memory management
+* No Garbage Collection, since we want to stay true to C's explicit memory management
 
 ## Installation
 
