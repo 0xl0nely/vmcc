@@ -18,7 +18,7 @@ A fully featured interpreter for the C language syntax.
 * Create a Pwnable Challenge from my own Interpreted Programming Language (no LLVM)
 
 ## Features
-* The RISC Register Based Virtual Machine utilizes 64 bit addressing mode.
+* A Register Based RISC Virtual Machine that utilizes 64 bit addressing mode.
 * Extremely fast lexer, parser, analysis, and bytecode generation.
 * Does not rely on any bloated external libraries besides GLIBC.
 * Virtual Machine supports 32 bit addressing modes as well.
@@ -33,6 +33,7 @@ A fully featured interpreter for the C language syntax.
 * Project Targest Multiple Architectures (x86, ARM, SPARC, MIPS, POWERPC)
 * Implement a Just In Time Compiler for the runtime option
 * No Garbage Collection, since we want to stay true to C's explicit memory management
+* JIT bytecode interpreter for optimal startup speeds
 
 ## Installation
 
