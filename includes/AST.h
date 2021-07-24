@@ -10,6 +10,7 @@ protected:
 public:
     virtual ~AstNode();
 
+
 };
 
 class Program: public AstNode {
@@ -94,7 +95,7 @@ public:
 };
 
 class IfStatement: public AstNode {
-
+public:
 
 };
 

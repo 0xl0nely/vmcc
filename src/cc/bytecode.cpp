@@ -1,1 +1,17 @@
-#include "../../includes/bytecode.h"
+#include "bytecode.h"
+
+class ByteCodeFormat {
+private:
+public:
+
+
+
+
+
+
+
+
+
+
+
+};

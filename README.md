@@ -16,14 +16,14 @@ A fully featured interpreter for the C language syntax.
 * Make it as efficient as possible
 * Learn how to write my own Interpreted Programming Language
 * Create a Pwnable Challenge from my own Interpreted Programming Language (no LLVM)
+* Ability to compile from C source, and modify compiled binary symbols from specific architectures
 
 ## Features
 * A Register Based RISC Virtual Machine that utilizes 64 bit addressing mode.
-* Extremely fast lexer, parser, analysis, and bytecode generation.
+* Extremely fast lexer, parser, analysis, compiler, and interpreter
 * Does not rely on any bloated external libraries besides GLIBC.
-* Virtual Machine supports 32 bit addressing modes as well.
 * Minimal Memory Footprint.
-* Custom Bytecode File Format.
+* Custom and Sophisticated Bytecode File Format
 * Extremely Fast Heap Allocation Within Virtual Machine with a Linear Memory Allocator
 * Virtual Machine's Malloc Implements a Caching Algorithm Similar to Tcache (Chunk Recycling)
 * Built-in REPL for ease of use.
@@ -31,7 +31,7 @@ A fully featured interpreter for the C language syntax.
 * Debugger for code running in the virtual machine
 * Easy to use API for c++
 * Project Targest Multiple Architectures (x86, ARM, SPARC, MIPS, POWERPC)
-* Implement a Just In Time Compiler for the runtime option
+* Implement a Just In Time Compiler
 * No Garbage Collection, since we want to stay true to C's explicit memory management
 * JIT bytecode interpreter for optimal startup speeds
 

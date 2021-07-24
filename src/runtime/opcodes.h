@@ -1,10 +1,17 @@
 #ifndef OPCODES_H
 #define OPCODES_H
+#include "bytecode.h"
+
+#define R 1
+#define W 2
+#define X 4
 
 typedef enum class {
 // no operand instructions
     RET,
     SYSCALL,
+
+// stos instruction copies size from r0 to wherever r1 is pointing to: rax -> rdi
     STOSB,
     STOSW,
     STOSD,
@@ -47,6 +54,7 @@ typedef enum class {
 
 /*
     no 8/16/32 bit compatibility, just 64 bit addressing mode
+    we have the memory, we are going to use it >:)
 */
 
 typedef enum class {
@@ -74,6 +82,13 @@ typedef enum class {
     OF,  // overflow flag
 } flags;
 
+typedef enum class {
+    BYTE,
+    WORD,
+    DWORD,
+    QWORD
+}size;
+
 class CPU {
 private:
     registers reg;
@@ -87,13 +102,5 @@ public:
 
 
 };
-
-class BYTECODE_FORMAT
-
-
-
-
-
-
 
 #endif
