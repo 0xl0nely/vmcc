@@ -7,7 +7,7 @@ understanding of the implementation.
 
 ## Architecture
 
-* Summary
+### Summary
 
 The virtual machine runs it's own custom architecture that only supports 64
 bit addressing modes. Since practically all cpu's support 64 bit addressing
@@ -21,7 +21,7 @@ were all based off of x86.
 
 Another important thing to note here, the assembler abides by the intel syntax.
 
-* Registers
+### Registers
 
 Note: Despite their names that resemble x86's 16 bit naming conventions, each
 of these registers are 64 bits wide.
@@ -37,7 +37,7 @@ of these registers are 64 bits wide.
 | bp            | Base Pointer                                   |
 | ip            | Instruction pointer                            |
 
-* Instructions
+### Instructions
 
 These are all of the supported instructions of VMCC's architecture.
 
