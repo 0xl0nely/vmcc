@@ -82,9 +82,6 @@ These are all of the supported instructions of VMCC's architecture.
 | TEST          | Performs bitwise AND instruction, and sets bit flags; result discarded    |
 
 
-
-
-
 ## Lexical Analysis
 ## Parsing into AST
 ## Semantic Analysis
